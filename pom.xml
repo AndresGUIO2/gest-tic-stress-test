@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.gestionatic</groupId>
+  <artifactId>GestTICSTest</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <name>GestionaTIC Performance Tests</name>
+  <description>Pruebas de rendimiento para API GestionaTIC usando Gatling</description>
+
+  <properties>
+    <maven.compiler.source>21</maven.compiler.source>
+    <maven.compiler.target>21</maven.compiler.target>
+    <encoding>UTF-8</encoding>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+    <gatling.version>3.11.5</gatling.version>
+    <gatling-maven-plugin.version>4.9.6</gatling-maven-plugin.version>
+    <scala.version>2.13.14</scala.version>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>io.gatling.highcharts</groupId>
+      <artifactId>gatling-charts-highcharts</artifactId>
+      <version>${gatling.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>io.gatling</groupId>
+      <artifactId>gatling-app</artifactId>
+      <version>${gatling.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>io.gatling</groupId>
+      <artifactId>gatling-recorder</artifactId>
+      <version>${gatling.version}</version>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>net.alchim31.maven</groupId>
+        <artifactId>scala-maven-plugin</artifactId>
+        <version>4.9.2</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>testCompile</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <scalaVersion>${scala.version}</scalaVersion>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>io.gatling</groupId>
+        <artifactId>gatling-maven-plugin</artifactId>
+        <version>${gatling-maven-plugin.version}</version>
+        <configuration>
+          <runMultipleSimulations>true</runMultipleSimulations>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+  <!-- Perfiles para diferentes tipos de pruebas -->
+  <profiles>
+    <!-- Perfil para pruebas individuales de endpoints -->
+    <profile>
+      <id>endpoints</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>io.gatling</groupId>
+            <artifactId>gatling-maven-plugin</artifactId>
+            <version>${gatling-maven-plugin.version}</version>
+            <configuration>
+              <simulationsFolder>src/test/scala/gestionatic</simulationsFolder>
+              <includes>
+                <include>gestionatic.Test*</include>
+              </includes>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
+    <!-- Perfil para pruebas de escalabilidad -->
+    <profile>
+      <id>scalability</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>io.gatling</groupId>
+            <artifactId>gatling-maven-plugin</artifactId>
+            <version>${gatling-maven-plugin.version}</version>
+            <configuration>
+              <simulationsFolder>src/test/scala/gestionatic</simulationsFolder>
+              <includes>
+                <include>gestionatic.ScalabilityTest*</include>
+              </includes>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
+    <!-- Perfil para pruebas de estrés -->
+    <profile>
+      <id>stress</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>io.gatling</groupId>
+            <artifactId>gatling-maven-plugin</artifactId>
+            <version>${gatling-maven-plugin.version}</version>
+            <configuration>
+              <simulationsFolder>src/test/scala/gestionatic</simulationsFolder>
+              <includes>
+                <include>gestionatic.StressTest*</include>
+              </includes>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
+    <!-- Perfil para pruebas BDD -->
+    <profile>
+      <id>bdd</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>io.gatling</groupId>
+            <artifactId>gatling-maven-plugin</artifactId>
+            <version>${gatling-maven-plugin.version}</version>
+            <configuration>
+              <simulationsFolder>src/test/scala/gestionatic</simulationsFolder>
+              <includes>
+                <include>gestionatic.BDD*</include>
+              </includes>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+</project>
