@@ -32,11 +32,14 @@ simulation.log
 Thumbs.db
 desktop.ini
 
-# Java
+# Java / build artifacts
+# Ignore compiled classes (build artifacts)
 *.class
-*.jar
-*.war
-*.ear
+# Avoid committing built archives unless intentional. If the repository must contain
+# specific jars/wars, uncomment the corresponding patterns below.
+#*.jar
+#*.war
+#*.ear
 
 # Keystores and secrets
 *.jks
