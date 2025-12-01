@@ -10,27 +10,17 @@ import gestionatic.EndpointsAnalysis._
  * =========================================================================
  * PRUEBAS DE ESCALABILIDAD - GestionaTIC API
  * =========================================================================
- * 
- * Simulaciones con diferentes niveles de carga:
- * - Iteración 1: 1 usuario (baseline)
- * - Iteración 2: 10 usuarios (carga ligera)
- * - Iteración 3: 100 usuarios (carga normal)
- * - Iteración 4: 500+ usuarios (carga alta - hacia 90% RAM)
- * 
- * INSTRUCCIONES PARA EJECUTAR:
- * 
- * Para ejecutar con diferente cantidad de usuarios, puedes:
- * 
- * 1. Usar variable de entorno:
- *    mvn gatling:test -Dgatling.simulationClass=gestionatic.ScalabilityTest -DUSERS=10
- * 
- * 2. Modificar directamente el valor USUARIOS en este archivo
- * 
- * CÓMO TOMAR EVIDENCIAS:
- * 1. Abrir Administrador de Tareas (Ctrl+Shift+Esc)
- * 2. Ir a pestaña "Rendimiento"
- * 3. Capturar pantalla ANTES y DURANTE cada prueba
- * 4. Registrar: Uso CPU%, Memoria RAM%, Tiempo respuesta
+ * Simulaciones con distintos niveles de carga (por ejemplo: 1, 10, 100, 500+).
+ * Objetivo: evaluar comportamiento del servicio ante aumentos de concurrencia
+ * y medir latencias, throughput y tasa de errores.
+ *
+ * Ejecución: puede parametrizarse vía variables del sistema (ej.: `USERS`,
+ * `DURATION`) o modificando los valores en la simulación. Ejemplo:
+ *
+ * mvn gatling:test -Dgatling.simulationClass=gestionatic.ScalabilityTest -DUSERS=10
+ *
+ * Recomendación: ejecutar en entornos de prueba controlados y recopilar
+ * métricas y logs del sistema para posterior análisis.
  */
 
 class ScalabilityTest_01User extends Simulation {

@@ -8,26 +8,22 @@ import gestionatic.EndpointsAnalysis._
 
 /**
  * =========================================================================
- * PRUEBAS DE ESTRÉS - ALCANZAR 90% USO DE RECURSOS
+ * PRUEBAS DE ESTRÉS
  * =========================================================================
- * 
- * Objetivo: Incrementar gradualmente la carga hasta saturar el sistema
- * 
- * IMPORTANTE - ANTES DE EJECUTAR:
- * 1. Abrir Administrador de Tareas (Ctrl+Shift+Esc)
- * 2. Ir a pestaña "Rendimiento"
- * 3. Monitorear CPU y Memoria
- * 4. Detener cuando alcance ~90% de uso
- * 
- * INSTRUCCIONES:
- * - Ejecutar StressTest_Progressive para incremento gradual
- * - Ajustar MAX_USUARIOS según capacidad de tu máquina
- * - Tomar capturas de pantalla en cada etapa
+ * Objetivo: Incrementar gradualmente la carga para identificar puntos de falla
+ * y evaluación de recuperación. Estas pruebas deben ejecutarse en entornos
+ * de staging o controlados; monitorice recursos (CPU, memoria, red, BD) y
+ * detenga la ejecución si el uso de recursos compromete el entorno (por
+ * ejemplo, consumo aproximado > 90%).
+ *
+ * Instrucciones de ejecución: utilizar la simulación `StressTest_Progressive`
+ * y ajustar parámetros (por ejemplo `MAX_USUARIOS`, duración) según el
+ * entorno de prueba. Registrar logs y métricas para análisis posterior.
  */
 
 /**
  * PRUEBA DE ESTRÉS PROGRESIVA
- * Incrementa usuarios gradualmente para encontrar el límite
+ * Incrementar usuarios gradualmente para encontrar el límite
  */
 class StressTest_Progressive extends Simulation {
   
